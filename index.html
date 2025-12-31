@@ -1,244 +1,90 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Student Registration Page</title>
-<style>
-h3 {
-color:red;
-}
-h1 {
-font-size:55;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy New Year 2026 | Sri Green Enterprises</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      padding: 50px 20px;
+      background: rgba(0,0,0,0.5);
+    }
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      color: #FFD700;
+      text-shadow: 2px 2px 5px #000;
+    }
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+      color: #f0f0f0;
+    }
+    .promo {
+      padding: 40px 20px;
+    }
+    .promo h2 {
+      font-size: 2em;
+      color: #00FA9A;
+    }
+    .promo p {
+      font-size: 1.1em;
+      max-width: 700px;
+      margin: 20px auto;
+      line-height: 1.6;
+    }
+    .gif-container {
+      margin: 30px auto;
+    }
+    .gif-container img {
+      max-width: 400px;
+      border: 5px solid #FFD700;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,215,0,0.7);
+    }
+    footer {
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+    footer a {
+      color: #FFD700;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-<h1 align="center">The Shree Ram Universal School</h1>
-<h3 align="center">Student Registration Page</h3>
-<table align="center" cellpadding = "5">
-<!-- <First Name> -->
-<tr>
-<td>First Name</td>
-<td><input type="text" name="First Name" maxlength=30/>
-(max 30 carector a-z and A-Z)
-</td>
-</tr>
-<!-- <Last Name> -->
-<tr>
-<td>Last Name</td>
-<td><input type="text" name="Last Name" maxlength=30/>
-(max 30 carector a-z and A-Z)
-</td>
-</tr>
-<!-- <Date Of Birth> -->
-<tr>
-<td>Date Of Birth</td>
-<td>
-<Select name="Birthday_Date" Id="Birthday_Day">
-<option value="-1">Day:</option>
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-<option value="24">24</option>
-<option value="25">25</option>
-<option value="26">26</option>
-<option value="27">27</option>
-<option value="28">28</option>
-<option value="29">29</option>
-<option value="30">30</option>
-<option value="31">31</option>
-</select>
+  <header>
+    <h1>🎉 Happy New Year 2026 🎉</h1>
+    <p>Wishing you prosperity and success from <strong>Sri Green Enterprises</strong></p>
+  </header>
 
-<Select name="Birthday_Month" Id="Birthday_Month">
-<option value="-1">Month:</option>
-<option value="1">Jan</option>
-<option value="2">Feb</option>
-<option value="3">Mar</option>
-<option value="4">Apr</option>
-<option value="5">May</option>
-<option value="6">Jun</option>
-<option value="7">Jul;</option>
-<option value="8">Aug</option>
-<option value="9">Sep</option>
-<option value="10">Oct</option>
-<option value="11">Nov</option>
-<option value="12">Dec</option>
-</select>
-<Select name="Birthday_Year" Id="Birthday_Year">
-<option value="-1">Year:</option>
-<option value="1">1997</option>
-<option value="2">1998</option>
-<option value="3">1999</option>
-<option value="4">2000</option>
-<option value="5">2001</option>
-<option value="6">2002</option>
-<option value="7">2003</option>
-<option value="8">2004</option>
-</select>
-</td>
-</tr>
-<!-- <Email id> -->
-<tr>
-<td>Email Id.</td>
-<td><input type="text" name="Email Id" maxlength=30/>
-</td>
-</tr>
-<!-- <Mobile N0> -->
-<tr>
-<td>Mobile No.</td>
-<td><input type="text" name="Mobile No" maxlength=30/>
-(10 digit number)
-</td>
-</tr>
-<tr>
-<!-- <Gender> -->
-<td>Gender</td>
-<td>
-Male <input type="radio" Name="Gender" Value="Male"/>
-Female <input type="radio" Name="Gender" Value="Male"/>
-</td>
-</tr>
-<!-- <Address> -->
-<tr>
-<td>Address <br /><br /><br /></td>
-<td><textarea name="Address"rows="4" cols="30"></textarea>
-</td>
-</tr>
-<!-- <City> -->
-<tr>
-<td>City</td>
-<td><input type="text" name="City" maxlength="30"/>
-(max 30 characters a-z and A-Z)
-</td>
-</tr>
-<!-- <Pin Code> -->
-<tr>
-<td>Pin code</td>
-<td><input type="text" name="Pin_code" maxlength="6"/>
-(6 Digit number)
-</td>
-</tr>
-<!-- <State> -->
-<tr>
-<td>State</td>
-<td><input type="text" name="State" maxlength="30"/>
-(max 30 characters a-z and A-Z)
-</td>
-</tr>
-</tr>
-<!-- <Country> -->
-<tr>
-<td>Country</td>
-<td><input type="text" name="Country" value="India" readonly="readonly"/>
-</td>
-</tr>
-<tr>
-<td>Hobbies <br/><br/><br/></td>
-<td>
-Drawing
-<input type="CheckBox" Name="Hobbies_Drawing" Value="Drawing"/>
-Singing
-<input type="Checkbox" Name="Hobbies" Value="Singing"/>
-Dancing
-<input type="checkbox" Name="Hobbie" Value="Dancing"/>
-Reading
-<input type="checkbox" name="Hobbies" Value="Reading"/>
-<br/>
-Other
-<input type="checkbox" Name="hobbies" Value="Other"/>
-<input type="textbox" Name="Hobbies" maxlength="30"/>
-</td>
-</tr>
-<tr>
-<td>Qualification<br/><br/><br/><br/><br/><br/><br/><br/></</td>
-<td>
-<table>
-<tr>
-<td align="center"><b>Si.No.</b></td>
-<td align="center"><b>Examination</b></td>
-<td align="center"><b>Board</b></td>
-<td align="center"><b>Percentage<b></td>
-<td align="center"><b>Year<b></td>
-</tr>
-<tr>
-<td>1.</td>
-<td>Matriculation</td>
-<td><input type="textbox" name="Board" maxlength="30"/></td>
-<td><input type="textbox" name="Percentage" maxlength="30"/></td>
-<td><input type="textbox" name="Year" maxlength="30"/></td>
-</tr>
-<tr>
-<td>2.</td>
-<td>Intermediate</td>
-<td><input type="textbox" name="Board" maxlength="30"/></td>
-<td><input type="textbox" name="Percentage" maxlength="30"/></td>
-<td><input type="textbox" name="Year" maxlength="30"/></td>
-</tr>
-<tr>
-<td>3.</td>
-<td>Graduation</td>
-<td><input type="textbox" name="Board" maxlength="30"/></td>
-<td><input type="textbox" name="Percentage" maxlength="30"/></td>
-<td><input type="textbox" name="Year" maxlength="30"/></td>
-</tr>
-<tr>
-<td>4.</td>
-<td>Masters</td>
-<td><input type="textbox" name="Board" maxlength="30"/></td>
-<td><input type="textbox" name="Percentage" maxlength="30"/></td>
-<td><input type="textbox" name="Year" maxlength="30"/></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>(10 char max)</td>
-<td>(up to 2 decimal)</td>
-</tr>
-</table>
-</td>
-<tr>
-<td>Course<br />Applied For</td>
-<td>
-BCA <input type="radio" Name="BCA" Value="BCA"/>
-B.Com <input type="radio" Name="B.Com" Value="B.Com"/>
-B.Sc <input type="radio" Name="B.Sc" Value="B.Sc"/>
-B.A <input type="radio" Name="B.A" Value="B.A"/>
-</td>
-</tr>
-<tr>
+  <section class="promo">
+    <h2>🌱 New Year, New Opportunities!</h2>
+    <p>
+      As we step into 2026, Sri Green Enterprises is excited to bring you innovative solutions 
+      for sustainable growth. Let’s make this year greener, brighter, and more successful together.
+    </p>
+    <div class="gif-container">
+      <!-- Replace with your actual GIF hosted on your domain -->
+      <img src="http://srigreenenterprises.com/newyear2026.gif" alt="Happy New Year 2026 GIF">
+    </div>
+  </section>
 
-    <td>hello</td>
-    <td>hello</td>
-    <td>asfsd</td>
-    <td>hggfh</td>
-    <td>hvh</td>
-
-
-
-</tr>
-<tr>
-    <td>world</td>
-</tr>
-</table>
+  <footer>
+    © 2026 Sri Green Enterprises | Visit us at 
+    <a href="https://srigreenenterprises.com">srigreenenterprises.com</a>
+  </footer>
 </body>
-
 </html>
