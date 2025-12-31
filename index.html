@@ -1,301 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Sri Green Enterprises – Billing</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --brand:#1078f0;
-  --accent:#10b981;
-  --bg:#f4f7fb;
-  --card:#ffffff;
-  --text:#1f2937;
-  --muted:#64748b;
-  --border:#e5e7eb;
-  --danger:#ef4444;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
-
-/* HEADER */
-header{
-  text-align:center;
-  padding:20px;
-  background:#fff;
-  border-bottom:2px solid var(--border);
-}
-header h1{margin:0;color:#16a34a;font-size:1.8rem}
-header p{margin:6px 0 0;color:var(--muted)}
-
-/* CONTAINER */
-.container{
-  max-width:1100px;
-  margin:15px auto;
-  background:#fff;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,.08);
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-}
-.field label{font-weight:600;font-size:.9rem}
-input,select{
-  width:100%;
-  padding:10px;
-  margin-top:4px;
-  border:1px solid var(--border);
-  border-radius:8px;
-}
-
-/* TABLE */
-.table-wrap{overflow-x:auto}
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:15px;
-}
-th,td{
-  border-bottom:1px solid var(--border);
-  padding:10px;
-  text-align:center;
-}
-th{background:#eef6ff}
-.lineTotal{font-weight:700;color:#0f766e}
-
-/* BUTTONS */
-.toolbar{
-  display:flex;
-  gap:10px;
-  margin:15px 0;
-  flex-wrap:wrap;
-}
-button{
-  padding:10px 16px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:600;
-}
-.add{background:var(--brand);color:#fff}
-.calc{background:var(--accent);color:#033}
-.print{background:#f59e0b}
-.remove{background:transparent;color:var(--danger);border:1px solid var(--danger)}
-
-/* SUMMARY */
-.summary{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-}
-.card{
-  border:1px solid var(--border);
-  padding:15px;
-  border-radius:12px;
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  .grid{grid-template-columns:1fr}
-  .summary{grid-template-columns:1fr}
-  .toolbar{flex-direction:column}
-  button{width:100%}
-  header h1{font-size:1.4rem}
-}
-
-/* PRINT */
-@media print{
-  body{background:#fff}
-  .toolbar,.summary input,.summary select{display:none}
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <h1>Sri Green Enterprises</h1>
-  <p>Electric & Hardware Shop Billing (Wire billed per meter)</p>
-</header>
-
-<div class="container">
-
-<!-- CUSTOMER -->
-<div class="grid">
-  <div class="field">
-    <label>Customer Name</label>
-    <input id="custName">
-  </div>
-  <div class="field">
-    <label>Customer Email</label>
-    <input id="custEmail">
-  </div>
-  <div class="field">
-    <label>Invoice No</label>
-    <input id="invoiceNo" readonly>
-  </div>
-  <div class="field">
-    <label>Invoice Date</label>
-    <input id="invoiceDate" readonly>
-  </div>
-</div>
-
-<!-- ITEMS -->
-<div class="table-wrap">
-<table id="billTable">
-<thead>
-<tr>
-  <th>Item</th>
-  <th>Price ₹</th>
-  <th>Qty</th>
-  <th>Wire (meter)</th>
-  <th>Total ₹</th>
-  <th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<select class="item">
-  <option value="">Select</option>
-  <option>LED Bulb</option>
-  <option>Tube Light</option>
-  <option>Switch Board</option>
-  <option>Fan</option>
-  <option>MCB</option>
-  <option>Socket</option>
-  <option>Extension Board</option>
-  <option>Hammer</option>
-  <option>Pliers</option>
-  <option>Screwdriver</option>
-  <option>Electric Wire</option>
-  <option>Custom Item</option>
-</select>
-</td>
-<td><input type="number" class="price"></td>
-<td><input type="number" class="qty" value="1"></td>
-<td><select class="meter" style="display:none"></select></td>
-<td class="lineTotal">0.00</td>
-<td><button class="remove">Remove</button></td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<div class="toolbar">
-  <button class="add" id="addRow">Add Item</button>
-  <button class="calc" id="calc">Calculate</button>
-  <button class="print" id="print">Print Receipt</button>
-</div>
-
-<div class="summary">
-<div class="card">
-  <label><input type="checkbox" id="gstCheck"> Apply GST</label><br><br>
-  <label>GST %</label>
-  <select id="gstRate">
-    <option value="0">0%</option>
-    <option value="5">5%</option>
-    <option value="12">12%</option>
-    <option value="18" selected>18%</option>
-    <option value="28">28%</option>
-  </select>
-</div>
-
-<div class="card">
-  <p>Subtotal: <span id="subTotal">₹0.00</span></p>
-  <p>GST: <span id="gstAmount">₹0.00</span></p>
-  <h3>Grand Total: <span id="grandTotal">₹0.00</span></h3>
-</div>
-</div>
-
-<div class="card" id="receipt" style="margin-top:15px"></div>
-
-</div>
-
-<script>
-invoiceNo.value="SGE-"+Math.floor(1000+Math.random()*9000);
-invoiceDate.value=new Date().toLocaleString();
-
-function fillMeter(sel){
-  sel.innerHTML='<option value="0">Select</option>';
-  for(let i=1;i<=25;i++) sel.innerHTML+=`<option value="${i}">${i} meter</option>`;
-}
-
-function attach(row){
-  const item=row.querySelector(".item");
-  const price=row.querySelector(".price");
-  const qty=row.querySelector(".qty");
-  const meter=row.querySelector(".meter");
-  const total=row.querySelector(".lineTotal");
-
-  fillMeter(meter);
-
-  function calcLine(){
-    let q=item.value==="Electric Wire"?Number(meter.value):Number(qty.value);
-    total.textContent=(Number(price.value||0)*q).toFixed(2);
-    calcBill();
-  }
-
-  item.onchange=()=>{
-    if(item.value==="Electric Wire"){
-      qty.disabled=true; qty.value=0;
-      meter.style.display="block";
-    }else{
-      qty.disabled=false;
-      meter.style.display="none";
-      meter.value=0;
+  <meta charset="UTF-8" />
+  <title>New Year 2025 • Sri Green Enterprises</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
+  <style>
+    :root{
+      --bg:#0b1021;
+      --panel:#0f172a;
+      --text:#e5e7eb;
+      --muted:#9aa4b2;
+      --accent:#00d4ff;
+      --accent-2:#ff3e7f;
+      --gold:#ffd166;
+      --btn:#1e293b;
+      --card:#0d1326;
+      --success:#41d17d;
     }
-    calcLine();
-  };
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(255,62,127,0.12), transparent 60%),
+                  radial-gradient(900px 600px at 10% 0%, rgba(0,212,255,0.15), transparent 60%),
+                  linear-gradient(180deg, #070b18, #0b1021);
+    }
 
-  price.oninput=qty.oninput=meter.onchange=calcLine;
-  row.querySelector(".remove").onclick=()=>{row.remove();calcBill();}
-}
+    /* Decorative star grid */
+    .stars{
+      position:fixed; inset:0; pointer-events:none; opacity:0.4;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.5), transparent 30%),
+        radial-gradient(2px 2px at 70% 20%, rgba(255,255,255,0.4), transparent 30%),
+        radial-gradient(2px 2px at 40% 70%, rgba(255,255,255,0.3), transparent 30%),
+        radial-gradient(2px 2px at 85% 80%, rgba(255,255,255,0.6), transparent 30%);
+    }
 
-attach(document.querySelector("tbody tr"));
+    /* Header */
+    .topbar{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:linear-gradient(180deg, rgba(15,23,42,0.85), rgba(15,23,42,0.55));
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+    .wrap{
+      max-width:1100px; margin:0 auto; padding:14px 20px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:0.3px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:8px;
+      background: conic-gradient(from 180deg, var(--accent), var(--accent-2), var(--gold), var(--accent));
+      box-shadow:0 0 18px rgba(0,212,255,0.35);
+    }
+    .brand span{font-size:16px}
+    .nav{
+      display:flex; gap:16px;
+    }
+    .nav a{
+      color:var(--muted); text-decoration:none; font-weight:600; font-size:14px; padding:8px 10px; border-radius:6px;
+    }
+    .nav a:hover{color:var(--text); background:rgba(255,255,255,0.06)}
 
-addRow.onclick=()=>{
-  const r=document.querySelector("tbody tr").cloneNode(true);
-  r.querySelectorAll("input").forEach(i=>i.value=0);
-  r.querySelector(".lineTotal").textContent="0.00";
-  document.querySelector("tbody").appendChild(r);
-  attach(r);
-};
+    /* Hero */
+    .hero{
+      position:relative; overflow:hidden;
+      padding:80px 20px 40px;
+      text-align:center;
+    }
+    .headline{
+      font-size:42px; line-height:1.15; margin:10px auto; max-width:900px; font-weight:800;
+      background: linear-gradient(90deg, #fff, #bfefff 50%, #ffd6e5);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow: 0 0 20px rgba(0,212,255,0.25);
+    }
+    .subtitle{
+      font-size:18px; color:var(--muted); max-width:700px; margin:14px auto 0;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px; font-weight:700; color:#0b1021;
+      background:linear-gradient(90deg, var(--gold), #ffe7a6);
+      border-radius:999px; padding:6px 12px; box-shadow:0 6px 18px rgba(255,209,102,0.25);
+    }
+    .actions{
+      margin-top:24px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+    }
+    .btn{
+      border:none; cursor:pointer; border-radius:10px; padding:12px 18px; font-weight:700; letter-spacing:0.2px;
+      color:#fff; background:linear-gradient(90deg, #00b1e6, #7b61ff);
+      box-shadow:0 10px 28px rgba(123,97,255,0.35);
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.secondary{
+      background:linear-gradient(90deg, #252b40, #1e2437);
+      color:#d0d6e3; box-shadow:0 8px 22px rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+    }
 
-function calcBill(){
-  let subtotal=0;
-  document.querySelectorAll(".lineTotal").forEach(t=>subtotal+=Number(t.textContent));
-  let gst=gstCheck.checked?subtotal*Number(gstRate.value)/100:0;
-  let grand=subtotal+gst;
+    /* Offer grid */
+    .section{
+      max-width:1100px; padding:10px 20px; margin:0 auto 36px;
+    }
+    .section h2{
+      font-size:28px; margin:0 0 14px; font-weight:800;
+    }
+    .cards{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px;
+    }
+    .card{
+      background:linear-gradient(180deg, var(--card), #0b1328);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:14px; padding:16px; position:relative; overflow:hidden;
+    }
+    .card::before{
+      content:""; position:absolute; inset:-40% -20% auto auto; height:160px; width:160px;
+      background:radial-gradient(80px 80px at 50% 50%, rgba(0,212,255,0.25), transparent);
+      transform:rotate(25deg);
+    }
+    .card h3{margin:6px 0 6px; font-size:18px}
+    .card p{margin:0; color:var(--muted); font-size:14px}
+    .tag{
+      display:inline-block; font-size:12px; font-weight:700; color:#0b1021; background:#41d17d;
+      padding:6px 10px; border-radius:999px; box-shadow:0 6px 16px rgba(65,209,125,0.25);
+    }
+    .save{
+      color:#41d17d; font-weight:800;
+    }
 
-  subTotal.textContent="₹"+subtotal.toFixed(2);
-  gstAmount.textContent="₹"+gst.toFixed(2);
-  grandTotal.textContent="₹"+grand.toFixed(2);
+    /* Product spotlight */
+    .spotlight{
+      display:grid; grid-template-columns:1.2fr 1fr; gap:18px; align-items:center;
+      background:linear-gradient(180deg, #0d142a, #0a1124);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px; padding:20px;
+    }
+    .spotlight img{
+      width:100%; height:auto; border-radius:12px; border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 10px 28px rgba(0,0,0,0.35);
+      background:linear-gradient(180deg, #0a1124, #0e1630);
+    }
+    .spotlight h3{margin:0 0 8px; font-size:22px; font-weight:800}
+    .spotlight p{margin:0 0 12px; color:var(--muted)}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+      background:rgba(0,212,255,0.1); color:#bfefff; border:1px solid rgba(0,212,255,0.25); font-size:13px; font-weight:700;
+    }
 
-  receipt.innerHTML=
-    `<strong>Receipt</strong><br>
-     Invoice: ${invoiceNo.value}<br>
-     Date: ${invoiceDate.value}<br>
-     Customer: ${custName.value || "Customer"}<br><br>
-     <strong>Total Payable: ₹${grand.toFixed(2)}</strong>`;
-}
+    /* Countdown */
+    .countdown{
+      display:flex; gap:12px; justify-content:center; margin:22px auto 10px;
+    }
+    .time{
+      background:linear-gradient(180deg, #121a33, #0d142a);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:10px 14px; min-width:90px;
+    }
+    .time .num{font-size:22px; font-weight:800}
+    .time .lbl{font-size:12px; color:var(--muted)}
 
-calc.onclick=calcBill;
-print.onclick=()=>window.print();
-</script>
+    /* Footer */
+    footer{
+      margin-top:40px; padding:28px 20px;
+      background:linear-gradient(180deg, rgba(15,23,42,0.85), rgba(15,23,42,0.6));
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+    .footwrap{max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center}
+    .footwrap small{color:var(--muted)}
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap}
+    .cta{background:linear-gradient(90deg, #00b1e6, #7b61ff); color:#fff; border:none; border-radius:999px; padding:10px 16px; font-weight:800; cursor:pointer}
+    .cta.secondary{background:linear-gradient(90deg, #252b40, #1e2437); color:#d0d6e3; border:1px solid rgba(255,255,255,0.08)}
 
+    /* Fireworks dots */
+    .fireworks{
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+    }
+    .dot{
+      position:absolute; width:6px; height:6px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent-2));
+      animation: pop 1.4s ease-out forwards;
+    }
+    @keyframes pop{
+      0%{transform:scale(0.4); opacity:0.9}
+      60%{transform:scale(1.8); opacity:1}
+      100%{transform:scale(0.2); opacity:0}
+    }
+
+    /* Snackbar */
+    .snackbar{
+      position:fixed; bottom:18px; left:50%; transform:translateX(-50%);
+      background:linear-gradient(180deg, #121a33, #0d142a); color:#bfefff;
+      border:1px solid rgba(0,212,255,0.25); border-radius:999px; padding:10px 16px;
+      font-weight:700; display:none;
+    }
+
+    /* Responsive */
+    @media (max-width:880px){
+      .headline{font-size:34px}
+      .spotlight{grid-template-columns:1fr; text-align:center}
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="fireworks" id="fireworks"></div>
+
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo"></div>
+        <span>Sri Green Enterprises</span>
+      </div>
+      <nav class="nav">
+        <a href="#offers">New Year Offers</a>
+        <a href="#best">Best Sellers</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="badge">New Year 2025 Celebration</div>
+    <h1 class="headline">Brighten Your 2025 • Electric & Hardware Deals That Spark Joy</h1>
+    <p class="subtitle">From premium LED lighting to robust wiring and tools—celebrate the New Year with exclusive savings, reliable quality, and a look that feels truly professional.</p>
+    <div class="countdown" id="countdown">
+      <div class="time"><div class="num" id="d">00</div><div class="lbl">Days</div></div>
+      <div class="time"><div class="num" id="h">00</div><div class="lbl">Hours</div></div>
+      <div class="time"><div class="num" id="m">00</div><div class="lbl">Minutes</div></div>
+      <div class="time"><div class="num" id="s">00</div><div class="lbl">Seconds</div></div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="shopNow">Explore New Year Offers</button>
+      <button class="btn secondary" id="contactUs">Request a Quote</button>
+    </div>
+  </section>
+
+  <section class="section" id="offers">
+    <h2>Limited-Time New Year Offers</h2>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">LED Lighting</span>
+        <h3>LED Bulbs & Tube Lights</h3>
+        <p>Energy-efficient brilliance for homes and shops. Upto <span class="save">25% OFF</span> on bundles.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Wiring</span>
+        <h3>Electric Wire (per meter)</h3>
+        <p>Trusted, durable wire with per-meter billing. Choose your size—built for safety and performance.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Controls</span>
+        <h3>Switch Boards & Sockets</h3>
+        <p>Reliable hardware with clean finishes. New Year kits available with combo discounts.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Tools</span>
+        <h3>Hammer • Pliers • Screwdrivers</h3>
+        <p>Pro-grade tools for precision work. Sturdy build, great grip—ready for 2025 projects.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="best">
+    <div class="spotlight">
+      <div>
+        <h3>Premium LED Starter Kit</h3>
+        <p>Upgrade your space with a curated LED kit—optimized for brightness and efficiency. Ideal for homes, shops, and offices.</p>
+        <div class="pill">Includes: LED Bulbs • Tube Lights • Switch Board</div>
+        <div class="actions" style="justify-content:flex-start; margin-top:14px">
+          <button class="btn" id="getKit">Get the Kit</button>
+          <button class="btn secondary" id="learnMore">Learn More</button>
+        </div>
+      </div>
+      <img alt="LED kit preview" src="data:image/svg+xml;charset=UTF-8,%3Csvg width='640' height='420' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%2300b1e6'/%3E%3Cstop offset='1' stop-color='%237b61ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='640' height='420' fill='%230d142a'/%3E%3Crect x='20' y='20' width='600' height='380' rx='16' fill='url(%23g)' opacity='0.25'/%3E%3Ctext x='50%' y='50%' fill='%23bfefff' font-size='24' font-family='Segoe UI' text-anchor='middle'%3ELED Starter Kit Preview%3C/text%3E%3C/svg%3E" />
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Connect With Us</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Visit</h3>
+        <p>Sri Green Enterprises • Electric & Hardware Shop</p>
+        <p style="margin-top:8px">Trusted local store with professional service and premium products.</p>
+      </div>
+      <div class="card">
+        <h3>Call / Message</h3>
+        <p>Reach us for quotes, bulk orders, and New Year bundles.</p>
+        <div class="actions" style="justify-content:flex-start; margin-top:12px">
+          <button class="btn secondary" id="messageBtn">Message Us</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Website</h3>
+        <p>Explore more at srigreenenterprises.com</p>
+        <div class="actions" style="justify-content:flex-start; margin-top:12px">
+          <button class="btn" id="visitSite">Open Website</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footwrap">
+      <small>© 2025 Sri Green Enterprises • Electric & Hardware Shop • All rights reserved</small>
+      <div class="cta-row">
+        <button class="cta" id="bookNow">Book New Year Installation</button>
+        <button class="cta secondary" id="bulkOrder">Bulk Order Deals</button>
+      </div>
+    </div>
+  </footer>
+
+  <div class="snackbar" id="snackbar">Offer added to your list!</div>
+
+  <script>
+    /* Countdown to Jan 1, 2025 00:00:00 */
+    (function(){
+      const target = new Date('2025-01-01T00:00:00').getTime();
+      const dEl=document.getElementById('d'), hEl=document.getElementById('h'),
+            mEl=document.getElementById('m'), sEl=document.getElementById('s');
+      function tick(){
+        const now = Date.now();
+        let diff = Math.max(0, target - now);
+        const d = Math.floor(diff / (1000*60*60*24));
+        diff -= d*(1000*60*60*24);
+        const h = Math.floor(diff / (1000*60*60));
+        diff -= h*(1000*60*60);
+        const m = Math.floor(diff / (1000*60));
+        diff -= m*(1000*60);
+        const s = Math.floor(diff / 1000);
+        dEl.textContent = String(d).padStart(2,'0');
+        hEl.textContent = String(h).padStart(2,'0');
+        mEl.textContent = String(m).padStart(2,'0');
+        sEl.textContent = String(s).padStart(2,'0');
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    /* Fireworks on interactions */
+    const fw = document.getElementById('fireworks');
+    function burst(x,y, count=24){
+      for(let i=0;i<count;i++){
+        const dot = document.createElement('div');
+        dot.className='dot';
+        const angle = (Math.PI*2) * (i/count);
+        const dist = 40 + Math.random()*80;
+        const tx = Math.cos(angle) * dist;
+        const ty = Math.sin(angle) * dist;
+        dot.style.left = (x + tx) + 'px';
+        dot.style.top  = (y + ty) + 'px';
+        dot.style.background = i%2===0
+          ? 'radial-gradient(circle at 30% 30%, #fff, var(--accent))'
+          : 'radial-gradient(circle at 30% 30%, #fff, var(--accent-2))';
+        fw.appendChild(dot);
+        setTimeout(()=> dot.remove(), 1400);
+      }
+    }
+    document.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY, 18);
+    });
+
+    /* Snackbar helper */
+    const snackbar = document.getElementById('snackbar');
+    function toast(msg){
+      snackbar.textContent = msg;
+      snackbar.style.display = 'inline-flex';
+      setTimeout(()=> snackbar.style.display='none', 1600);
+    }
+
+    /* Buttons */
+    document.getElementById('shopNow').addEventListener('click', ()=>{
+      document.getElementById('offers').scrollIntoView({behavior:'smooth'});
+      toast('Exploring New Year offers');
+    });
+    document.getElementById('contactUs').addEventListener('click', ()=>{
+      document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+      toast('Request a quote • We’ll assist you');
+    });
+    document.getElementById('getKit').addEventListener('click', ()=>{
+      toast('LED Starter Kit added to inquiry list');
+    });
+    document.getElementById('learnMore').addEventListener('click', ()=>{
+      toast('Details coming up');
+    });
+    document.getElementById('messageBtn').addEventListener('click', ()=>{
+      toast('Message sent • We’ll reply shortly');
+    });
+    document.getElementById('visitSite').addEventListener('click', ()=>{
+      window.open('https://srigreenenterprises.com', '_blank');
+    });
+    document.getElementById('bookNow').addEventListener('click', ()=>{
+      toast('Installation booking initiated');
+    });
+    document.getElementById('bulkOrder').addEventListener('click', ()=>{
+      toast('Bulk order deal prepared');
+    });
+
+    /* Intro fireworks burst */
+    setTimeout(()=> burst(window.innerWidth/2, 180, 26), 600);
+  </script>
 </body>
 </html>
