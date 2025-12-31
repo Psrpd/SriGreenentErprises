@@ -1,519 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>srigreenenterprises — Electric Shop Billing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --brand:#1078f0;
-      --accent:#10b981;
-      --bg:#f4f7fb;
-      --card:#ffffff;
-      --text:#1f2937;
-      --muted:#64748b;
-      --border:#e5e7eb;
-      --warn:#f59e0b;
-      --danger:#ef4444;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; background:var(--bg); color:var(--text); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    }
-    header{
-      text-align:center; padding:28px 16px;
-    }
-    header h1{
-      margin:0; font-size:2rem; color:var(--brand);
-    }
-    header .brand{ color:#16a34a; font-weight:700; }
-    header p{ margin:8px 0 0; color:var(--muted); }
-    .container{
-      max-width:1100px; margin:20px auto 60px; background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:0 12px 40px rgba(16,120,240,0.08);
-      padding:24px;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sri Green Enterprises – Billing</title>
 
-    /* Grid for customer/invoice info */
-    .grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px; }
-    .field{ display:flex; flex-direction:column; gap:6px; }
-    .label{ font-weight:600; color:var(--muted); font-size:0.92rem; }
-    input[type="text"], input[type="number"], input[type="email"], select{
-      width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:#fff; color:var(--text); outline:none;
-    }
-    input[type="number"]{ appearance:textfield; }
-    input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-    /* Table */
-    table{ width:100%; border-collapse:collapse; margin-top:8px; }
-    thead th{
-      background:#eef6ff; color:#0f4ab8; padding:12px; font-size:0.9rem; border-bottom:1px solid var(--border);
-      text-transform:uppercase; letter-spacing:0.4px;
-    }
-    tbody td{ padding:10px; border-bottom:1px solid var(--border); vertical-align:middle; }
-    .line-total{ text-align:right; font-weight:700; color:#0f766e; }
+<style>
+:root{
+  --brand:#1078f0;
+  --accent:#10b981;
+  --bg:#f4f7fb;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#64748b;
+  --border:#e5e7eb;
+  --danger:#ef4444;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
 
-    /* Controls */
-    .toolbar{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 18px; }
-    .btn{
-      padding:11px 16px; border:none; border-radius:10px; font-weight:600; cursor:pointer; transition:transform .08s ease, box-shadow .2s ease;
-    }
-    .btn:active{ transform:scale(0.98); }
-    .btn-add{ background:var(--brand); color:#fff; box-shadow:0 8px 20px rgba(16,120,240,0.25); }
-    .btn-primary{ background:var(--accent); color:#062a20; box-shadow:0 8px 20px rgba(16,185,129,0.25); }
-    .btn-print{ background:var(--warn); color:#1b1200; box-shadow:0 8px 20px rgba(245,158,11,0.25); }
-    .btn-remove{ background:transparent; color:var(--danger); border:1px solid var(--danger); }
+/* HEADER */
+header{
+  text-align:center;
+  padding:20px;
+  background:#fff;
+  border-bottom:2px solid var(--border);
+}
+header h1{margin:0;color:#16a34a;font-size:1.8rem}
+header p{margin:6px 0 0;color:var(--muted)}
 
-    /* Options and summary */
-    .options{ display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin:10px 0; }
-    .toggle{ display:flex; align-items:center; gap:8px; background:#fff; border:1px solid var(--border); padding:10px 12px; border-radius:10px; }
-    .summary{ margin-top:10px; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .card{ background:#fff; border:1px solid var(--border); border-radius:14px; padding:14px; }
-    .card h3{ margin:0 0 10px; font-size:1rem; color:var(--muted); }
-    .totals{ display:grid; gap:6px; }
-    .totals .row{ display:flex; justify-content:space-between; align-items:center; }
-    .totals .grand{ margin-top:4px; padding-top:8px; border-top:1px dashed var(--border); font-weight:700; color:#16a34a; }
+/* CONTAINER */
+.container{
+  max-width:1100px;
+  margin:15px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
 
-    /* Receipt */
-    #receipt{ margin-top:14px; }
-    @media print{
-      body{ background:white; }
-      .container{ box-shadow:none; border:none; }
-      .toolbar, .options{ display:none; }
-      header{ padding:0; }
-    }
-    .hint{
-      font-size:0.92rem; color:var(--muted); background:#f8fafc; border:1px dashed var(--border); border-radius:10px; padding:10px 12px;
-    }
-  </style>
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+.field label{font-weight:600;font-size:.9rem}
+input,select{
+  width:100%;
+  padding:10px;
+  margin-top:4px;
+  border:1px solid var(--border);
+  border-radius:8px;
+}
+
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+}
+th,td{
+  border-bottom:1px solid var(--border);
+  padding:10px;
+  text-align:center;
+}
+th{background:#eef6ff}
+.lineTotal{font-weight:700;color:#0f766e}
+
+/* BUTTONS */
+.toolbar{
+  display:flex;
+  gap:10px;
+  margin:15px 0;
+  flex-wrap:wrap;
+}
+button{
+  padding:10px 16px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+.add{background:var(--brand);color:#fff}
+.calc{background:var(--accent);color:#033}
+.print{background:#f59e0b}
+.remove{background:transparent;color:var(--danger);border:1px solid var(--danger)}
+
+/* SUMMARY */
+.summary{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+.card{
+  border:1px solid var(--border);
+  padding:15px;
+  border-radius:12px;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .grid{grid-template-columns:1fr}
+  .summary{grid-template-columns:1fr}
+  .toolbar{flex-direction:column}
+  button{width:100%}
+  header h1{font-size:1.4rem}
+}
+
+/* PRINT */
+@media print{
+  body{background:#fff}
+  .toolbar,.summary input,.summary select{display:none}
+}
+</style>
 </head>
+
 <body>
-  <header>
-<h1>🎉 Happy New Year 2026 🎉</h1>
-    <h1><span class="brand">srigreenenterprises</span> — Electric Shop Billing</h1>
-    <p>Professional billing with expanded item list, per‑meter wire selector, GST, and print‑ready receipt.</p>
-  </header>
 
-  <div class="container">
-    <!-- Customer & invoice info -->
-    <div class="grid">
-      <div class="field">
-        <label class="label">Customer name</label>
-        <input type="text" id="customerName" placeholder="Enter customer name"/>
-      </div>
-      <div class="field">
-        <label class="label">Customer email (optional)</label>
-        <input type="email" id="customerEmail" placeholder="name@example.com"/>
-      </div>
-      <div class="field">
-        <label class="label">Invoice number</label>
-        <input type="text" id="invoiceNo" placeholder="Auto"/>
-      </div>
-      <div class="field">
-        <label class="label">Invoice date</label>
-        <input type="text" id="invoiceDate" placeholder="Auto"/>
-      </div>
-    </div>
+<header>
+  <h1>Sri Green Enterprises</h1>
+  <p>Electric & Hardware Shop Billing (Wire billed per meter)</p>
+</header>
 
-    <!-- Items table -->
-    <table id="itemsTable">
-      <thead>
-        <tr>
-          <th>Item (price shown)</th>
-          <th>Price (₹)</th>
-          <th>Quantity</th>
-          <th>Wire meters</th>
-          <th>Total (₹)</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <!-- Item dropdown (expanded, shows price in label) -->
-          <td>
-            <select class="itemSelect">
-              <option value="">— Select Item —</option>
-              <optgroup label="Electric items">
-                <option value="LED Bulb">LED Bulb — ₹100</option>
-                <option value="Tube Light">Tube Light — ₹200</option>
-                <option value="Switch Board">Switch Board — ₹250</option>
-                <option value="Fan Capacitor">Fan Capacitor — ₹150</option>
-                <option value="Ceiling Fan">Ceiling Fan — ₹1500</option>
-                <option value="Electric Wire">Electric Wire (per meter) — ₹25</option>
-                <option value="MCB">MCB (Mini Circuit Breaker) — ₹350</option>
-                <option value="Extension Board">Extension Board — ₹400</option>
-                <option value="Socket">Socket — ₹80</option>
-                <option value="Iron">Electric Iron — ₹1200</option>
-                <option value="Inverter">Inverter — ₹7500</option>
-                <option value="Battery">Battery — ₹4500</option>
-                <option value="Power Strip">Power Strip — ₹350</option>
-                <option value="Voltage Stabilizer">Voltage Stabilizer — ₹1800</option>
-                <option value="LED Panel Light">LED Panel Light — ₹600</option>
-              </optgroup>
-              <optgroup label="Hardware tools">
-                <option value="Hammer">Hammer — ₹300</option>
-                <option value="Screwdriver">Screwdriver — ₹80</option>
-                <option value="Pliers">Pliers — ₹120</option>
-                <option value="Drill Machine">Drill Machine — ₹2500</option>
-                <option value="Wire Cutter">Wire Cutter — ₹200</option>
-              </optgroup>
-              <optgroup label="Custom">
-                <option value="Custom Item">Custom Item (enter price)</option>
-              </optgroup>
-            </select>
-          </td>
+<div class="container">
 
-          <!-- Price (editable, also autofills) -->
-          <td><input type="number" class="price" placeholder="0"/></td>
-
-          <!-- Quantity -->
-          <td><input type="number" class="qty" value="1" min="0" step="1"/></td>
-
-          <!-- Wire meters dropdown (shows automatically when Electric Wire is selected) -->
-          <td>
-            <select class="wireMeters" style="display:none;">
-              <option value="0">Select meters</option>
-              <!-- 1 to 25 -->
-              <script>
-                // This script tag will be replaced by JS below; kept to show intent
-              </script>
-            </select>
-            <div class="hint wireHint" style="display:none;">Meters override Quantity for Electric Wire</div>
-          </td>
-
-          <!-- Line total -->
-          <td class="line-total">0.00</td>
-
-          <!-- Remove -->
-          <td><button class="btn btn-remove">Remove</button></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Controls -->
-    <div class="toolbar">
-      <button class="btn btn-add" id="addRowBtn">+ Add product</button>
-      <button class="btn btn-primary" id="calcBtn">Calculate bill</button>
-      <button class="btn btn-print" id="printBtn">Print receipt</button>
-    </div>
-
-    <!-- GST -->
-    <div class="options">
-      <div class="toggle">
-        <input type="checkbox" id="applyGST"/>
-        <label for="applyGST">Apply GST</label>
-      </div>
-      <div class="toggle">
-        <label for="gstRate">GST %</label>
-        <select id="gstRate">
-          <option value="0">0%</option>
-          <option value="5">5%</option>
-          <option value="12">12%</option>
-          <option value="18" selected>18%</option>
-          <option value="28">28%</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Totals summary -->
-    <div class="summary">
-      <div class="card">
-        <h3>Totals</h3>
-        <div class="totals">
-          <div class="row"><div>Subtotal</div><div id="subtotal">₹0.00</div></div>
-          <div class="row"><div>GST Amount</div><div id="gstAmount">₹0.00</div></div>
-          <div class="row grand"><div>Grand total</div><div id="grandTotal">₹0.00</div></div>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Notes</h3>
-        <div class="hint">
-          Item dropdown shows prices. For Electric Wire, use the “Wire meters” dropdown (1–25); it overrides Quantity and bills per meter.
-          You can still edit price manually (e.g., discounts).
-        </div>
-      </div>
-    </div>
-
-    <!-- Receipt render -->
-    <div id="receipt" class="card"></div>
+<!-- CUSTOMER -->
+<div class="grid">
+  <div class="field">
+    <label>Customer Name</label>
+    <input id="custName">
   </div>
+  <div class="field">
+    <label>Customer Email</label>
+    <input id="custEmail">
+  </div>
+  <div class="field">
+    <label>Invoice No</label>
+    <input id="invoiceNo" readonly>
+  </div>
+  <div class="field">
+    <label>Invoice Date</label>
+    <input id="invoiceDate" readonly>
+  </div>
+</div>
 
-  <script>
-    // Price list
-    const priceList = {
-      "LED Bulb": 100,
-      "Tube Light": 200,
-      "Switch Board": 250,
-      "Fan Capacitor": 150,
-      "Ceiling Fan": 1500,
-      "Electric Wire": 25, // per meter
-      "MCB": 350,
-      "Extension Board": 400,
-      "Socket": 80,
-      "Iron": 1200,
-      "Inverter": 7500,
-      "Battery": 4500,
-      "Power Strip": 350,
-      "Voltage Stabilizer": 1800,
-      "LED Panel Light": 600,
-      "Hammer": 300,
-      "Screwdriver": 80,
-      "Pliers": 120,
-      "Drill Machine": 2500,
-      "Wire Cutter": 200
-    };
+<!-- ITEMS -->
+<div class="table-wrap">
+<table id="billTable">
+<thead>
+<tr>
+  <th>Item</th>
+  <th>Price ₹</th>
+  <th>Qty</th>
+  <th>Wire (meter)</th>
+  <th>Total ₹</th>
+  <th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<select class="item">
+  <option value="">Select</option>
+  <option>LED Bulb</option>
+  <option>Tube Light</option>
+  <option>Switch Board</option>
+  <option>Fan</option>
+  <option>MCB</option>
+  <option>Socket</option>
+  <option>Extension Board</option>
+  <option>Hammer</option>
+  <option>Pliers</option>
+  <option>Screwdriver</option>
+  <option>Electric Wire</option>
+  <option>Custom Item</option>
+</select>
+</td>
+<td><input type="number" class="price"></td>
+<td><input type="number" class="qty" value="1"></td>
+<td><select class="meter" style="display:none"></select></td>
+<td class="lineTotal">0.00</td>
+<td><button class="remove">Remove</button></td>
+</tr>
+</tbody>
+</table>
+</div>
 
-    const tableBody = document.querySelector("#itemsTable tbody");
-    const addRowBtn = document.getElementById("addRowBtn");
-    const calcBtn = document.getElementById("calcBtn");
-    const printBtn = document.getElementById("printBtn");
+<div class="toolbar">
+  <button class="add" id="addRow">Add Item</button>
+  <button class="calc" id="calc">Calculate</button>
+  <button class="print" id="print">Print Receipt</button>
+</div>
 
-    // Initialize invoice details
-    function initHeader(){
-      const now = new Date();
-      const invoiceDate = now.toLocaleString();
-      const invoiceNo = "SGE-" + now.getFullYear().toString().slice(-2) + (now.getMonth()+1).toString().padStart(2,"0") + "-" + Math.floor(1000 + Math.random()*8999);
-      document.getElementById("invoiceDate").value = invoiceDate;
-      document.getElementById("invoiceNo").value = invoiceNo;
+<div class="summary">
+<div class="card">
+  <label><input type="checkbox" id="gstCheck"> Apply GST</label><br><br>
+  <label>GST %</label>
+  <select id="gstRate">
+    <option value="0">0%</option>
+    <option value="5">5%</option>
+    <option value="12">12%</option>
+    <option value="18" selected>18%</option>
+    <option value="28">28%</option>
+  </select>
+</div>
+
+<div class="card">
+  <p>Subtotal: <span id="subTotal">₹0.00</span></p>
+  <p>GST: <span id="gstAmount">₹0.00</span></p>
+  <h3>Grand Total: <span id="grandTotal">₹0.00</span></h3>
+</div>
+</div>
+
+<div class="card" id="receipt" style="margin-top:15px"></div>
+
+</div>
+
+<script>
+invoiceNo.value="SGE-"+Math.floor(1000+Math.random()*9000);
+invoiceDate.value=new Date().toLocaleString();
+
+function fillMeter(sel){
+  sel.innerHTML='<option value="0">Select</option>';
+  for(let i=1;i<=25;i++) sel.innerHTML+=`<option value="${i}">${i} meter</option>`;
+}
+
+function attach(row){
+  const item=row.querySelector(".item");
+  const price=row.querySelector(".price");
+  const qty=row.querySelector(".qty");
+  const meter=row.querySelector(".meter");
+  const total=row.querySelector(".lineTotal");
+
+  fillMeter(meter);
+
+  function calcLine(){
+    let q=item.value==="Electric Wire"?Number(meter.value):Number(qty.value);
+    total.textContent=(Number(price.value||0)*q).toFixed(2);
+    calcBill();
+  }
+
+  item.onchange=()=>{
+    if(item.value==="Electric Wire"){
+      qty.disabled=true; qty.value=0;
+      meter.style.display="block";
+    }else{
+      qty.disabled=false;
+      meter.style.display="none";
+      meter.value=0;
     }
-    initHeader();
+    calcLine();
+  };
 
-    // Fill wire meters (1–25) for all existing wireMeters selects
-    function fillWireMeters(select){
-      select.innerHTML = '<option value="0">Select meters</option>';
-      for(let i=1;i<=25;i++){
-        const opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = i + " m";
-        select.appendChild(opt);
-      }
-    }
+  price.oninput=qty.oninput=meter.onchange=calcLine;
+  row.querySelector(".remove").onclick=()=>{row.remove();calcBill();}
+}
 
-    // Attach row events
-    function attachRowEvents(row){
-      const select = row.querySelector(".itemSelect");
-      const priceInput = row.querySelector(".price");
-      const qtyInput = row.querySelector(".qty");
-      const totalCell = row.querySelector(".line-total");
-      const removeBtn = row.querySelector(".btn-remove");
-      const wireSelect = row.querySelector(".wireMeters");
-      const wireHint = row.querySelector(".wireHint");
+attach(document.querySelector("tbody tr"));
 
-      // prepare wire meters
-      fillWireMeters(wireSelect);
+addRow.onclick=()=>{
+  const r=document.querySelector("tbody tr").cloneNode(true);
+  r.querySelectorAll("input").forEach(i=>i.value=0);
+  r.querySelector(".lineTotal").textContent="0.00";
+  document.querySelector("tbody").appendChild(r);
+  attach(r);
+};
 
-      // Selecting item → autofill price + toggle wire UI
-      select.addEventListener("change", () => {
-        const item = select.value;
-        if (item && priceList.hasOwnProperty(item)) {
-          priceInput.value = priceList[item];
-        } else {
-          priceInput.value = "";
-        }
-        // Show wire meters when Electric Wire selected
-        const isWire = item === "Electric Wire";
-        wireSelect.style.display = isWire ? "block" : "none";
-        wireHint.style.display = isWire ? "block" : "none";
-        if (!isWire) wireSelect.value = "0";
-        computeLineTotal(priceInput, qtyInput, wireSelect, totalCell);
-      });
+function calcBill(){
+  let subtotal=0;
+  document.querySelectorAll(".lineTotal").forEach(t=>subtotal+=Number(t.textContent));
+  let gst=gstCheck.checked?subtotal*Number(gstRate.value)/100:0;
+  let grand=subtotal+gst;
 
-      // Recompute on price, qty, wire meter changes
-      priceInput.addEventListener("input", () => computeLineTotal(priceInput, qtyInput, wireSelect, totalCell));
-      qtyInput.addEventListener("input", () => computeLineTotal(priceInput, qtyInput, wireSelect, totalCell));
-      wireSelect.addEventListener("change", () => computeLineTotal(priceInput, qtyInput, wireSelect, totalCell));
+  subTotal.textContent="₹"+subtotal.toFixed(2);
+  gstAmount.textContent="₹"+gst.toFixed(2);
+  grandTotal.textContent="₹"+grand.toFixed(2);
 
-      // Remove row
-      removeBtn.addEventListener("click", () => {
-        row.remove();
-        calculateTotals();
-      });
-    }
+  receipt.innerHTML=
+    `<strong>Receipt</strong><br>
+     Invoice: ${invoiceNo.value}<br>
+     Date: ${invoiceDate.value}<br>
+     Customer: ${custName.value || "Customer"}<br><br>
+     <strong>Total Payable: ₹${grand.toFixed(2)}</strong>`;
+}
 
-    // Attach for the first row
-    attachRowEvents(tableBody.querySelector("tr"));
+calc.onclick=calcBill;
+print.onclick=()=>window.print();
+</script>
 
-    // Add product row (with theme components)
-    addRowBtn.addEventListener("click", () => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>
-          <select class="itemSelect">
-            <option value="">— Select Item —</option>
-            <optgroup label="Electric items">
-              <option value="LED Bulb">LED Bulb — ₹100</option>
-              <option value="Tube Light">Tube Light — ₹200</option>
-              <option value="Switch Board">Switch Board — ₹250</option>
-              <option value="Fan Capacitor">Fan Capacitor — ₹150</option>
-              <option value="Ceiling Fan">Ceiling Fan — ₹1500</option>
-              <option value="Electric Wire">Electric Wire (per meter) — ₹25</option>
-              <option value="MCB">MCB (Mini Circuit Breaker) — ₹350</option>
-              <option value="Extension Board">Extension Board — ₹400</option>
-              <option value="Socket">Socket — ₹80</option>
-              <option value="Iron">Electric Iron — ₹1200</option>
-              <option value="Inverter">Inverter — ₹7500</option>
-              <option value="Battery">Battery — ₹4500</option>
-              <option value="Power Strip">Power Strip — ₹350</option>
-              <option value="Voltage Stabilizer">Voltage Stabilizer — ₹1800</option>
-              <option value="LED Panel Light">LED Panel Light — ₹600</option>
-            </optgroup>
-            <optgroup label="Hardware tools">
-              <option value="Hammer">Hammer — ₹300</option>
-              <option value="Screwdriver">Screwdriver — ₹80</option>
-              <option value="Pliers">Pliers — ₹120</option>
-              <option value="Drill Machine">Drill Machine — ₹2500</option>
-              <option value="Wire Cutter">Wire Cutter — ₹200</option>
-            </optgroup>
-            <optgroup label="Custom">
-              <option value="Custom Item">Custom Item (enter price)</option>
-            </optgroup>
-          </select>
-        </td>
-        <td><input type="number" class="price" placeholder="0"/></td>
-        <td><input type="number" class="qty" value="1" min="0" step="1"/></td>
-        <td>
-          <select class="wireMeters" style="display:none;"></select>
-          <div class="hint wireHint" style="display:none;">Meters override Quantity for Electric Wire</div>
-        </td>
-        <td class="line-total">0.00</td>
-        <td><button class="btn btn-remove">Remove</button></td>
-      `;
-      tableBody.appendChild(row);
-      attachRowEvents(row);
-    });
-
-    // Compute line total (supports wire meters override)
-    function computeLineTotal(priceInput, qtyInput, wireSelect, totalCell){
-      const price = parseFloat(priceInput.value) || 0;
-      const qty = parseFloat(qtyInput.value) || 0;
-      const meters = wireSelect && wireSelect.style.display !== "none" ? parseFloat(wireSelect.value) || 0 : 0;
-      const effectiveQty = meters > 0 ? meters : qty; // wire meters override qty
-      const total = price * effectiveQty;
-      totalCell.textContent = total.toFixed(2);
-      calculateTotals(); // update summary
-    }
-
-    // Totals and receipt
-    function calculateTotals(){
-      let subtotal = 0;
-      tableBody.querySelectorAll("tr").forEach(tr => {
-        const price = parseFloat(tr.querySelector(".price").value) || 0;
-        const qty = parseFloat(tr.querySelector(".qty").value) || 0;
-        const wireSelect = tr.querySelector(".wireMeters");
-        const meters = wireSelect && wireSelect.style.display !== "none" ? parseFloat(wireSelect.value) || 0 : 0;
-        const effectiveQty = meters > 0 ? meters : qty;
-        subtotal += price * effectiveQty;
-      });
-
-      const applyGST = document.getElementById("applyGST").checked;
-      const gstRate = parseFloat(document.getElementById("gstRate").value) || 0;
-      const gstAmount = applyGST ? (subtotal * gstRate / 100) : 0;
-      const grandTotal = subtotal + gstAmount;
-
-      document.getElementById("subtotal").textContent = "₹" + subtotal.toFixed(2);
-      document.getElementById("gstAmount").textContent = "₹" + gstAmount.toFixed(2);
-      document.getElementById("grandTotal").textContent = "₹" + grandTotal.toFixed(2);
-
-      renderReceipt(subtotal, gstAmount, grandTotal, applyGST, gstRate);
-    }
-    calcBtn.addEventListener("click", calculateTotals);
-
-    function renderReceipt(subtotal, gstAmount, grandTotal, applyGST, gstRate){
-      const custName = document.getElementById("customerName").value || "Valued Customer";
-      const custEmail = document.getElementById("customerEmail").value || "";
-      const invoiceNo = document.getElementById("invoiceNo").value || "AUTO";
-      const invoiceDate = document.getElementById("invoiceDate").value || new Date().toLocaleString();
-
-      let lines = "";
-      tableBody.querySelectorAll("tr").forEach(tr => {
-        const item = tr.querySelector(".itemSelect").value || "";
-        const price = parseFloat(tr.querySelector(".price").value) || 0;
-        const qty = parseFloat(tr.querySelector(".qty").value) || 0;
-        const wireSelect = tr.querySelector(".wireMeters");
-        const metersActive = wireSelect && wireSelect.style.display !== "none";
-        const meters = metersActive ? parseFloat(wireSelect.value) || 0 : 0;
-        const effectiveQty = metersActive && meters > 0 ? meters : qty;
-        const total = price * effectiveQty;
-        if (item && effectiveQty > 0) {
-          lines += `
-            <tr>
-              <td style="text-align:left;">${item}${metersActive ? " ("+meters+" m)" : ""}</td>
-              <td style="text-align:right;">₹${price.toFixed(2)}</td>
-              <td style="text-align:right;">${metersActive ? meters : qty}</td>
-              <td style="text-align:right;">₹${total.toFixed(2)}</td>
-            </tr>`;
-        }
-      });
-
-      const gstRow = applyGST && gstRate > 0
-        ? `<tr><td colspan="3" style="text-align:right;">GST (${gstRate.toFixed(0)}%)</td><td style="text-align:right;">₹${gstAmount.toFixed(2)}</td></tr>`
-        : "";
-
-      const receiptHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
-          <div>
-            <div style="font-weight:700; color:#16a34a; font-size:1.1rem;">srigreenenterprises — Electric Shop</div>
-            <div style="color:#64748b; font-size:0.92rem;">Sadar, UP • India</div>
-          </div>
-          <div style="text-align:right; color:#64748b; font-size:0.92rem;">
-            <div><strong>Invoice:</strong> ${invoiceNo}</div>
-            <div><strong>Date:</strong> ${invoiceDate}</div>
-          </div>
-        </div>
-        <hr style="border:0; border-top:1px dashed #e5e7eb; margin:12px 0;">
-        <div style="margin:6px 0 10px; color:#64748b;">Billed to: <strong style="color:#1f2937;">${custName}</strong> ${custEmail ? " • "+custEmail : ""}</div>
-
-        <table style="width:100%; border-collapse:collapse;">
-          <thead>
-            <tr style="background:#eef6ff; color:#0f4ab8;">
-              <th style="text-align:left; padding:8px;">Item</th>
-              <th style="text-align:right; padding:8px;">Price</th>
-              <th style="text-align:right; padding:8px;">Qty</th>
-              <th style="text-align:right; padding:8px;">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${lines || `<tr><td colspan="4" style="padding:10px; color:#64748b; text-align:center;">No items</td></tr>`}
-          </tbody>
-          <tfoot>
-            <tr><td colspan="3" style="text-align:right; padding:8px;">Subtotal</td><td style="text-align:right; padding:8px;">₹${subtotal.toFixed(2)}</td></tr>
-            ${gstRow}
-            <tr style="font-weight:700; color:#16a34a;">
-              <td colspan="3" style="text-align:right; padding:8px;">Grand total</td>
-              <td style="text-align:right; padding:8px;">₹${grandTotal.toFixed(2)}</td>
-            </tr>
-          </tfoot>
-        </table>
-        <div style="margin-top:10px; color:#64748b; font-size:0.92rem;">
-          Thank you for choosing <strong style="color:#16a34a;">srigreenenterprises</strong>. Powering homes and businesses with care.
-        </div>
-      `;
-      document.getElementById("receipt").innerHTML = receiptHTML;
-    }
-
-    // Print
-    printBtn.addEventListener("click", () => {
-      calculateTotals();
-      const html = `
-        <html>
-          <head>
-            <title>Receipt — srigreenenterprises</title>
-            <style>
-              body{font-family:Inter, Arial, sans-serif; padding:20px;}
-              hr{border:0; border-top:1px dashed #999; margin:12px 0;}
-              table{width:100%; border-collapse:collapse;}
-              th,td{border-bottom:1px solid #ddd; padding:8px;}
-            </style>
-          </head>
-          <body>${document.getElementById("receipt").innerHTML}</body>
-        </html>`;
-      const w = window.open("", "", "width=800,height=900");
-      w.document.write(html);
-      w.document.close();
-      w.focus();
-      w.print();
-      w.close();
-    });
-  </script>
 </body>
 </html>
