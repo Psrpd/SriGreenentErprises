@@ -1,168 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sri Green Enterprises • New Year 2026 Promotion</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>Azure Developer Interview Questions & Answers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    :root {
-      --primary:#2ecc71;
-      --dark:#14532d;
-      --light:#e8f5e9;
-      --text:#1b1b1b;
-      --accent:#27ae60;
-      --gold:#f1c40f;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: linear-gradient(180deg, var(--light), #fff);
-      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
     }
-    header {
-      background: var(--primary);
-      color:#fff;
-      text-align:center;
-      padding:40px 20px;
-      position:relative;
+
+    h1 {
+      text-align: center;
+      color: #0f6cbd;
     }
-    header h1 {
-      font-size:42px;
-      font-weight:900;
-      margin-bottom:10px;
+
+    h2 {
+      background: #0f6cbd;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
     }
-    header p {
-      font-size:18px;
-      font-weight:500;
+
+    .qa {
+      background: #ffffff;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
-    .badge {
-      position:absolute;
-      top:20px; right:20px;
-      background:var(--gold);
-      color:#000;
-      padding:8px 14px;
-      border-radius:999px;
-      font-weight:700;
+
+    .question {
+      font-weight: bold;
+      color: #333;
     }
-    .hero {
-      text-align:center;
-      padding:50px 20px;
-      background:linear-gradient(135deg, #d4efdf, #f9f9f9);
+
+    .answer {
+      margin-top: 8px;
+      color: #555;
     }
-    .hero h2 {
-      font-size:32px;
-      font-weight:800;
-      color:var(--dark);
-      margin-bottom:12px;
+
+    code {
+      background: #eee;
+      padding: 4px 6px;
+      border-radius: 4px;
+      display: inline-block;
     }
-    .hero p {
-      font-size:18px;
-      max-width:700px;
-      margin:0 auto 20px;
+
+    pre {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
     }
-    .btn {
-      background:var(--accent);
-      color:#fff;
-      border:none;
-      padding:12px 20px;
-      border-radius:8px;
-      font-weight:700;
-      cursor:pointer;
-      margin:6px;
-    }
-    .btn:hover {background:#1e8449}
-    .offers {
-      padding:40px 20px;
-      max-width:1100px;
-      margin:auto;
-    }
-    .offers h3 {
-      text-align:center;
-      font-size:28px;
-      font-weight:800;
-      margin-bottom:20px;
-      color:var(--dark);
-    }
-    .cards {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
-    }
-    .card {
-      background:#fff;
-      border:2px solid var(--primary);
-      border-radius:12px;
-      padding:20px;
-      text-align:center;
-      transition:transform 0.2s;
-    }
-    .card:hover {transform:translateY(-4px)}
-    .card h4 {margin-bottom:10px; font-size:20px; color:var(--accent)}
-    .card p {font-size:14px; color:#333}
-    .address {
-      background:var(--dark);
-      color:#fff;
-      text-align:center;
-      padding:30px 20px;
-    }
-    .address h3 {margin-bottom:10px; font-size:22px}
+
     footer {
-      background:#2e7d32;
-      color:#fff;
-      text-align:center;
-      padding:20px;
-      font-size:14px;
-    }
-    @media(max-width:600px){
-      header h1{font-size:32px}
-      .hero h2{font-size:24px}
+      text-align: center;
+      margin-top: 30px;
+      color: #666;
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="badge">New Year 2026</div>
-    <h1>Sri Green Enterprises</h1>
-    <p>Electric & Hardware Shop • Professional & Trusted</p>
-  </header>
 
-  <section class="hero">
-    <h2>Celebrate New Year with Bright Savings!</h2>
-    <p>Upgrade your home and business with premium electric & hardware products. Special festive offers available now.</p>
-    <button class="btn">Explore Offers</button>
-    <button class="btn">Contact Us</button>
-  </section>
+<h1>Azure Developer Interview Questions & Answers</h1>
 
-  <section class="offers">
-    <h3>Featured Promotions</h3>
-    <div class="cards">
-      <div class="card">
-        <h4>LED Bulbs & Tube Lights</h4>
-        <p>Energy-efficient lighting solutions with up to 25% discount.</p>
-      </div>
-      <div class="card">
-        <h4>Electric Wire (Per Meter)</h4>
-        <p>Durable, safe wiring available per meter. Celebrate with precise billing.</p>
-      </div>
-      <div class="card">
-        <h4>Switch Boards & Sockets</h4>
-        <p>Reliable hardware with clean finishes. Combo kits at festive prices.</p>
-      </div>
-      <div class="card">
-        <h4>Tools & Accessories</h4>
-        <p>Hammer, Pliers, Screwdrivers — pro-grade tools for your 2026 projects.</p>
-      </div>
-    </div>
-  </section>
+<!-- ================= FUNDAMENTALS ================= -->
+<h2>1. Azure Fundamentals</h2>
 
-  <section class="address">
-    <h3>Visit Us</h3>
-    <p>Sri Green Enterprises<br>
-    Nayagaon, Saran, Bihar — 841217</p>
-  </section>
+<div class="qa">
+  <div class="question">Q1. What is Microsoft Azure?</div>
+  <div class="answer">
+    Azure is a cloud computing platform by Microsoft that provides services like
+    computing, storage, networking, databases, analytics, and DevOps.
+  </div>
+</div>
 
-  <footer>
-    © 2026 Sri Green Enterprises • Electric & Hardware Shop • All rights reserved
-  </footer>
+<div class="qa">
+  <div class="question">Q2. What are IaaS, PaaS, and SaaS?</div>
+  <div class="answer">
+    <b>IaaS</b> – Infrastructure (VMs, storage) <br>
+    <b>PaaS</b> – Platform (App Service, Azure SQL) <br>
+    <b>SaaS</b> – Software (Office 365, Outlook)
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q3. What is a Resource Group?</div>
+  <div class="answer">
+    A Resource Group is a logical container that holds related Azure resources.
+    <br><br>
+    <b>Example:</b> Web App + SQL + Storage inside one resource group.
+  </div>
+</div>
+
+<!-- ================= COMPUTE ================= -->
+<h2>2. Azure Compute Services</h2>
+
+<div class="qa">
+  <div class="question">Q4. What is Azure Virtual Machine?</div>
+  <div class="answer">
+    Azure VM allows you to run Windows or Linux servers in the cloud.
+    <br><br>
+    <b>Example:</b> Hosting legacy applications.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q5. What is Azure App Service?</div>
+  <div class="answer">
+    Azure App Service is a PaaS service to host web apps, APIs, and mobile apps.
+    <br><br>
+    <b>Example:</b> Hosting ASP.NET Core or Angular apps.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q6. What is Azure Function?</div>
+  <div class="answer">
+    Azure Functions is a serverless compute service that runs code on demand.
+    <br><br>
+    <b>Example:</b> Send email when a file is uploaded.
+    <pre>
+public static void Run(
+  [BlobTrigger("files/{name}")] string content)
+{
+    // process file
+}
+    </pre>
+  </div>
+</div>
+
+<!-- ================= STORAGE ================= -->
+<h2>3. Azure Storage</h2>
+
+<div class="qa">
+  <div class="question">Q7. Types of Azure Storage?</div>
+  <div class="answer">
+    Blob, File, Queue, Table, Disk Storage
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q8. What is Azure Blob Storage?</div>
+  <div class="answer">
+    Used for storing unstructured data like images, videos, documents.
+    <br><br>
+    <b>Example:</b> Profile images upload.
+  </div>
+</div>
+
+<!-- ================= DATABASE ================= -->
+<h2>4. Azure Database Services</h2>
+
+<div class="qa">
+  <div class="question">Q9. What is Azure SQL Database?</div>
+  <div class="answer">
+    Fully managed relational database service based on SQL Server.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q10. What is Azure Cosmos DB?</div>
+  <div class="answer">
+    A globally distributed NoSQL database with low latency.
+    <br><br>
+    <b>APIs:</b> Core (SQL), MongoDB, Cassandra, Table, Gremlin
+  </div>
+</div>
+
+<!-- ================= NETWORKING ================= -->
+<h2>5. Azure Networking</h2>
+
+<div class="qa">
+  <div class="question">Q11. What is Azure VNet?</div>
+  <div class="answer">
+    Virtual Network allows Azure resources to communicate securely.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q12. What is NSG?</div>
+  <div class="answer">
+    Network Security Group controls inbound and outbound traffic.
+  </div>
+</div>
+
+<!-- ================= SECURITY ================= -->
+<h2>6. Azure Security</h2>
+
+<div class="qa">
+  <div class="question">Q13. What is Azure Active Directory?</div>
+  <div class="answer">
+    Identity and access management service for authentication and authorization.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q14. What is Azure Key Vault?</div>
+  <div class="answer">
+    Securely stores secrets, keys, and certificates.
+    <br><br>
+    <b>Example:</b> Connection strings.
+  </div>
+</div>
+
+<!-- ================= DEVOPS ================= -->
+<h2>7. Azure DevOps</h2>
+
+<div class="qa">
+  <div class="question">Q15. What is Azure DevOps?</div>
+  <div class="answer">
+    A set of tools for CI/CD, code management, testing, and deployment.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q16. What is CI/CD?</div>
+  <div class="answer">
+    CI: Continuous Integration <br>
+    CD: Continuous Deployment
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q17. Example of Azure DevOps YAML Pipeline</div>
+  <div class="answer">
+    <pre>
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    </pre>
+  </div>
+</div>
+
+<!-- ================= SCENARIO ================= -->
+<h2>8. Scenario-Based Questions</h2>
+
+<div class="qa">
+  <div class="question">Q18. How to host a highly available web app?</div>
+  <div class="answer">
+    Use Azure App Service + Load Balancer + Availability Zones + Auto Scaling.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q19. How do you reduce Azure cost?</div>
+  <div class="answer">
+    Auto-scaling, Reserved Instances, Storage tiers, Monitoring.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="question">Q20. How do you secure APIs in Azure?</div>
+  <div class="answer">
+    Azure API Management + Azure AD authentication + HTTPS.
+  </div>
+</div>
+
+<footer>
+  © Azure Developer Interview Preparation | Single Page HTML
+</footer>
+
 </body>
 </html>
