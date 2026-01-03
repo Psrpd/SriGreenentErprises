@@ -1,279 +1,440 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Azure Developer Interview Questions & Answers</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Azure Developer Interview – 100 Q&A</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 20px;
-      line-height: 1.6;
-    }
-
-    h1 {
-      text-align: center;
-      color: #0f6cbd;
-    }
-
-    h2 {
-      background: #0f6cbd;
-      color: #fff;
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    .qa {
-      background: #ffffff;
-      margin: 10px 0;
-      padding: 15px;
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-
-    .question {
-      font-weight: bold;
-      color: #333;
-    }
-
-    .answer {
-      margin-top: 8px;
-      color: #555;
-    }
-
-    code {
-      background: #eee;
-      padding: 4px 6px;
-      border-radius: 4px;
-      display: inline-block;
-    }
-
-    pre {
-      background: #272822;
-      color: #f8f8f2;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      color: #666;
-    }
-  </style>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  padding: 20px;
+}
+h1 {
+  text-align: center;
+  color: #0f6cbd;
+}
+h2 {
+  background: #0f6cbd;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+}
+.qa {
+  background: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+}
+.q {
+  font-weight: bold;
+}
+.a {
+  margin-top: 8px;
+}
+pre {
+  background: #1e1e1e;
+  color: #dcdcdc;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+</style>
 </head>
 
 <body>
 
-<h1>Azure Developer Interview Questions & Answers</h1>
+<h1>Azure Developer Interview – 100 Questions & Answers</h1>
 
 <!-- ================= FUNDAMENTALS ================= -->
-<h2>1. Azure Fundamentals</h2>
+<h2>1. Azure Fundamentals (1–20)</h2>
 
 <div class="qa">
-  <div class="question">Q1. What is Microsoft Azure?</div>
-  <div class="answer">
-    Azure is a cloud computing platform by Microsoft that provides services like
-    computing, storage, networking, databases, analytics, and DevOps.
-  </div>
+<div class="q">1. What is Microsoft Azure?</div>
+<div class="a">
+Azure is Microsoft’s cloud platform that provides computing, storage, networking,
+database, security, DevOps, and AI services over the internet.
+<br><b>Example:</b> Hosting a .NET API without buying a server.
+</div>
 </div>
 
 <div class="qa">
-  <div class="question">Q2. What are IaaS, PaaS, and SaaS?</div>
-  <div class="answer">
-    <b>IaaS</b> – Infrastructure (VMs, storage) <br>
-    <b>PaaS</b> – Platform (App Service, Azure SQL) <br>
-    <b>SaaS</b> – Software (Office 365, Outlook)
-  </div>
+<div class="q">2. What are IaaS, PaaS, SaaS?</div>
+<div class="a">
+<b>IaaS:</b> VM, storage (you manage OS) <br>
+<b>PaaS:</b> App Service (Azure manages OS) <br>
+<b>SaaS:</b> Office 365 (ready-to-use software)
+</div>
 </div>
 
 <div class="qa">
-  <div class="question">Q3. What is a Resource Group?</div>
-  <div class="answer">
-    A Resource Group is a logical container that holds related Azure resources.
-    <br><br>
-    <b>Example:</b> Web App + SQL + Storage inside one resource group.
-  </div>
+<div class="q">3. What is an Azure Subscription?</div>
+<div class="a">
+A billing and security boundary where Azure resources are created.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">4. What is a Resource Group?</div>
+<div class="a">
+A logical container to manage related Azure resources together.
+<br><b>Example:</b> WebApp + SQL + Storage in one group.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">5. What is Azure Region?</div>
+<div class="a">
+A geographical area containing multiple data centers.
+<br><b>Example:</b> Central India, East US.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">6. What are Availability Zones?</div>
+<div class="a">
+Physically separate data centers within a region to ensure high availability.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">7. What is Azure ARM?</div>
+<div class="a">
+Azure Resource Manager is used to deploy and manage resources using templates.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">8. What is Azure Portal?</div>
+<div class="a">
+A web-based UI to manage Azure services.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">9. What is Azure CLI?</div>
+<div class="a">
+Command-line tool to manage Azure resources.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">10. What is Azure PowerShell?</div>
+<div class="a">
+PowerShell module to automate Azure management.
+</div>
 </div>
 
 <!-- ================= COMPUTE ================= -->
-<h2>2. Azure Compute Services</h2>
+<h2>2. Compute Services (21–40)</h2>
 
 <div class="qa">
-  <div class="question">Q4. What is Azure Virtual Machine?</div>
-  <div class="answer">
-    Azure VM allows you to run Windows or Linux servers in the cloud.
-    <br><br>
-    <b>Example:</b> Hosting legacy applications.
-  </div>
+<div class="q">21. What is Azure Virtual Machine?</div>
+<div class="a">
+A cloud-based server where you manage OS and software.
+</div>
 </div>
 
 <div class="qa">
-  <div class="question">Q5. What is Azure App Service?</div>
-  <div class="answer">
-    Azure App Service is a PaaS service to host web apps, APIs, and mobile apps.
-    <br><br>
-    <b>Example:</b> Hosting ASP.NET Core or Angular apps.
-  </div>
+<div class="q">22. What is Azure App Service?</div>
+<div class="a">
+A PaaS service for hosting web apps and APIs.
+<br><b>Example:</b> ASP.NET Core API deployment.
+</div>
 </div>
 
 <div class="qa">
-  <div class="question">Q6. What is Azure Function?</div>
-  <div class="answer">
-    Azure Functions is a serverless compute service that runs code on demand.
-    <br><br>
-    <b>Example:</b> Send email when a file is uploaded.
-    <pre>
-public static void Run(
-  [BlobTrigger("files/{name}")] string content)
-{
-    // process file
-}
-    </pre>
-  </div>
+<div class="q">23. VM vs App Service?</div>
+<div class="a">
+VM: Full control, more maintenance <br>
+App Service: Less control, auto scaling, managed OS
+</div>
+</div>
+
+<div class="qa">
+<div class="q">24. What is Azure Function?</div>
+<div class="a">
+Serverless compute that runs code on demand.
+<br><b>Example:</b> Send email on file upload.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">25. What is Serverless?</div>
+<div class="a">
+You write code without managing servers.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">26. What is Azure Kubernetes Service?</div>
+<div class="a">
+Managed Kubernetes for container orchestration.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">27. What is Azure Container Instance?</div>
+<div class="a">
+Runs containers without managing clusters.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">28. What is Auto Scaling?</div>
+<div class="a">
+Automatically increases/decreases resources based on load.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">29. What is Load Balancer?</div>
+<div class="a">
+Distributes traffic across multiple instances.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">30. What is Application Gateway?</div>
+<div class="a">
+Layer-7 load balancer with SSL termination.
+</div>
 </div>
 
 <!-- ================= STORAGE ================= -->
-<h2>3. Azure Storage</h2>
+<h2>3. Storage (41–55)</h2>
 
 <div class="qa">
-  <div class="question">Q7. Types of Azure Storage?</div>
-  <div class="answer">
-    Blob, File, Queue, Table, Disk Storage
-  </div>
+<div class="q">41. Types of Azure Storage?</div>
+<div class="a">
+Blob, File, Queue, Table, Disk
+</div>
 </div>
 
 <div class="qa">
-  <div class="question">Q8. What is Azure Blob Storage?</div>
-  <div class="answer">
-    Used for storing unstructured data like images, videos, documents.
-    <br><br>
-    <b>Example:</b> Profile images upload.
-  </div>
+<div class="q">42. What is Blob Storage?</div>
+<div class="a">
+Stores unstructured data like images and videos.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">43. Hot vs Cool vs Archive?</div>
+<div class="a">
+Hot: Frequent access <br>
+Cool: Infrequent <br>
+Archive: Long-term storage
+</div>
+</div>
+
+<div class="qa">
+<div class="q">44. What is Azure Queue Storage?</div>
+<div class="a">
+Message-based communication between services.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">45. What is Azure File Storage?</div>
+<div class="a">
+Cloud-based file sharing like a network drive.
+</div>
 </div>
 
 <!-- ================= DATABASE ================= -->
-<h2>4. Azure Database Services</h2>
+<h2>4. Database (56–70)</h2>
 
 <div class="qa">
-  <div class="question">Q9. What is Azure SQL Database?</div>
-  <div class="answer">
-    Fully managed relational database service based on SQL Server.
-  </div>
+<div class="q">56. What is Azure SQL Database?</div>
+<div class="a">
+Fully managed relational database service.
+</div>
 </div>
 
 <div class="qa">
-  <div class="question">Q10. What is Azure Cosmos DB?</div>
-  <div class="answer">
-    A globally distributed NoSQL database with low latency.
-    <br><br>
-    <b>APIs:</b> Core (SQL), MongoDB, Cassandra, Table, Gremlin
-  </div>
+<div class="q">57. Azure SQL vs SQL Server VM?</div>
+<div class="a">
+Azure SQL: Managed <br>
+VM: Full control, more maintenance
 </div>
-
-<!-- ================= NETWORKING ================= -->
-<h2>5. Azure Networking</h2>
-
-<div class="qa">
-  <div class="question">Q11. What is Azure VNet?</div>
-  <div class="answer">
-    Virtual Network allows Azure resources to communicate securely.
-  </div>
 </div>
 
 <div class="qa">
-  <div class="question">Q12. What is NSG?</div>
-  <div class="answer">
-    Network Security Group controls inbound and outbound traffic.
-  </div>
+<div class="q">58. What is Azure Cosmos DB?</div>
+<div class="a">
+Globally distributed NoSQL database.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">59. Cosmos DB APIs?</div>
+<div class="a">
+SQL, MongoDB, Cassandra, Table, Gremlin
+</div>
+</div>
+
+<div class="qa">
+<div class="q">60. When to use Cosmos DB?</div>
+<div class="a">
+High throughput, low latency, global apps.
+</div>
 </div>
 
 <!-- ================= SECURITY ================= -->
-<h2>6. Azure Security</h2>
+<h2>5. Security & Identity (71–85)</h2>
 
 <div class="qa">
-  <div class="question">Q13. What is Azure Active Directory?</div>
-  <div class="answer">
-    Identity and access management service for authentication and authorization.
-  </div>
+<div class="q">71. What is Azure Active Directory?</div>
+<div class="a">
+Identity and access management service.
+</div>
 </div>
 
 <div class="qa">
-  <div class="question">Q14. What is Azure Key Vault?</div>
-  <div class="answer">
-    Securely stores secrets, keys, and certificates.
-    <br><br>
-    <b>Example:</b> Connection strings.
-  </div>
+<div class="q">72. What is RBAC?</div>
+<div class="a">
+Role-Based Access Control to manage permissions.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">73. What is Managed Identity?</div>
+<div class="a">
+Allows Azure resources to authenticate without credentials.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">74. What is Azure Key Vault?</div>
+<div class="a">
+Secure storage for secrets and certificates.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">75. How to secure connection strings?</div>
+<div class="a">
+Store them in Key Vault.
+</div>
 </div>
 
 <!-- ================= DEVOPS ================= -->
-<h2>7. Azure DevOps</h2>
+<h2>6. Azure DevOps & CI/CD (86–100)</h2>
 
 <div class="qa">
-  <div class="question">Q15. What is Azure DevOps?</div>
-  <div class="answer">
-    A set of tools for CI/CD, code management, testing, and deployment.
-  </div>
+<div class="q">86. What is Azure DevOps?</div>
+<div class="a">
+Toolset for CI/CD, repos, pipelines, boards.
+</div>
 </div>
 
 <div class="qa">
-  <div class="question">Q16. What is CI/CD?</div>
-  <div class="answer">
-    CI: Continuous Integration <br>
-    CD: Continuous Deployment
-  </div>
+<div class="q">87. What is CI/CD?</div>
+<div class="a">
+CI: Build & test automatically <br>
+CD: Deploy automatically
+</div>
 </div>
 
 <div class="qa">
-  <div class="question">Q17. Example of Azure DevOps YAML Pipeline</div>
-  <div class="answer">
-    <pre>
+<div class="q">88. What is YAML pipeline?</div>
+<div class="a">
+Pipeline defined as code.
+<pre>
 trigger:
 - main
-
-pool:
-  vmImage: 'windows-latest'
-
-steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    </pre>
-  </div>
+</pre>
 </div>
-
-<!-- ================= SCENARIO ================= -->
-<h2>8. Scenario-Based Questions</h2>
-
-<div class="qa">
-  <div class="question">Q18. How to host a highly available web app?</div>
-  <div class="answer">
-    Use Azure App Service + Load Balancer + Availability Zones + Auto Scaling.
-  </div>
 </div>
 
 <div class="qa">
-  <div class="question">Q19. How do you reduce Azure cost?</div>
-  <div class="answer">
-    Auto-scaling, Reserved Instances, Storage tiers, Monitoring.
-  </div>
+<div class="q">89. How to deploy .NET app to Azure?</div>
+<div class="a">
+Build → Publish → Deploy to App Service.
+</div>
 </div>
 
 <div class="qa">
-  <div class="question">Q20. How do you secure APIs in Azure?</div>
-  <div class="answer">
-    Azure API Management + Azure AD authentication + HTTPS.
-  </div>
+<div class="q">90. How to deploy Angular app?</div>
+<div class="a">
+Build → Upload to App Service or Storage Static Website.
+</div>
 </div>
 
-<footer>
-  © Azure Developer Interview Preparation | Single Page HTML
+<div class="qa">
+<div class="q">91. What is Blue-Green deployment?</div>
+<div class="a">
+Two environments to avoid downtime.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">92. What is rollback?</div>
+<div class="a">
+Reverting to previous stable version.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">93. What is Application Insights?</div>
+<div class="a">
+Application performance monitoring tool.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">94. How do you monitor Azure apps?</div>
+<div class="a">
+Azure Monitor + Application Insights.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">95. How do you reduce Azure cost?</div>
+<div class="a">
+Auto-scale, Reserved Instances, Monitoring.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">96. What is API Management?</div>
+<div class="a">
+Secure and manage APIs centrally.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">97. How do you secure APIs?</div>
+<div class="a">
+Azure AD + API Management + HTTPS.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">98. How do you handle failure?</div>
+<div class="a">
+Retry policies, monitoring, auto-scaling.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">99. What is zero-downtime deployment?</div>
+<div class="a">
+Deploy without affecting live users.
+</div>
+</div>
+
+<div class="qa">
+<div class="q">100. Real project Azure architecture?</div>
+<div class="a">
+Angular → App Service → API → Azure SQL → Key Vault → DevOps
+</div>
+</div>
+
+<footer style="text-align:center;margin-top:20px;">
+© Azure Developer Interview – 100 Questions
 </footer>
 
 </body>
